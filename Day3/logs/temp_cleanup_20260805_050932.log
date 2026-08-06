@@ -1,0 +1,7 @@
+[2026-08-05 05:09:32] [INFO] Starting cleanup mode.
+[2026-08-05 05:09:32] [INFO] Scanning target: C:\Users\labuser\AppData\Local\Temp\2
+[2026-08-05 05:09:32] [WARN] Locked file skipped: C:\Users\labuser\AppData\Local\Temp\2\07aa201b-1b07-4726-9db5-d55ef8409d72.tmp
+[2026-08-05 05:09:32] [INFO] DRYRUN would delete: C:\Users\labuser\AppData\Local\Temp\2\gen_py\3.9\dicts.dat
+[2026-08-05 05:09:32] [INFO] DRYRUN would delete: C:\Users\labuser\AppData\Local\Temp\2\gen_py\3.9\__init__.py
+[2026-08-05 05:09:32] [INFO] Scanning target: C:\Windows\Temp
+[2026-08-05 05:09:32] [ERROR] Failed to enumerate target: C:\Windows\Temp. Error: Access to the path 'C:\Windows\Temp' is denied.

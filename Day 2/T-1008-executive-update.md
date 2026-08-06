@@ -1,0 +1,2 @@
+Executive:
+Your access and data are safe, and there was no data loss. The Windows 11 upgrade removed the old remote-access app, and the automatic install of the new app did not run because a policy check missed this case. We cleared old app settings in Windows records, forced the device to check in, installed the new app, applied the required network-routing settings, and confirmed access to all internal systems. No action is needed from you.

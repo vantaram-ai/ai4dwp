@@ -1,0 +1,9 @@
+[2026-08-05 05:13:24] [INFO] Starting cleanup mode.
+[2026-08-05 05:13:24] [INFO] Scanning target: C:\Users\labuser\AppData\Local\Temp\2
+[2026-08-05 05:13:24] [WARN] Locked file skipped: C:\Users\labuser\AppData\Local\Temp\2\07aa201b-1b07-4726-9db5-d55ef8409d72.tmp
+[2026-08-05 05:13:24] [INFO] Deleted (quarantined): C:\Users\labuser\AppData\Local\Temp\2\gen_py\3.9\dicts.dat -> C:\Users\labuser\Documents\training\Day3\rollback\quarantine_20260805_051324\C__Users_labuser_AppData_Local_Temp_2_gen_py_3.9_dicts.dat
+[2026-08-05 05:13:24] [INFO] Deleted (quarantined): C:\Users\labuser\AppData\Local\Temp\2\gen_py\3.9\__init__.py -> C:\Users\labuser\Documents\training\Day3\rollback\quarantine_20260805_051324\C__Users_labuser_AppData_Local_Temp_2_gen_py_3.9___init__.py
+[2026-08-05 05:13:24] [INFO] Scanning target: C:\Windows\Temp
+[2026-08-05 05:13:24] [ERROR] Failed to enumerate target: C:\Windows\Temp. Error: Access to the path 'C:\Windows\Temp' is denied.
+[2026-08-05 05:13:24] [INFO] Rollback manifest created: C:\Users\labuser\Documents\training\Day3\rollback\manifest_20260805_051324.csv
+[2026-08-05 05:13:24] [INFO] Quarantine path: C:\Users\labuser\Documents\training\Day3\rollback\quarantine_20260805_051324
