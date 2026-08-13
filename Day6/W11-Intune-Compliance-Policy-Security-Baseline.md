@@ -210,6 +210,61 @@ The following settings carry a higher risk of the Intune admin center UI path ha
 
 ---
 
+## Post-Assignment Validation Steps (Device Just Synced)
+
+Use this workflow immediately after assigning the policy and forcing a device sync.
+
+### 1) Where to check compliance for this specific policy
+
+**Path A (from the policy):**
+
+1. Microsoft Intune admin center → Devices → Compliance → Policies.
+2. Open the Windows 10 and later policy you assigned.
+3. Select **Device status**.
+4. Search for the device name and open it to view per-setting results.
+
+**Path B (from the device):**
+
+1. Microsoft Intune admin center → Devices → All devices.
+2. Open the target device.
+3. Select **Device compliance**.
+4. Open the specific policy to see the state and failing setting details.
+
+### 2) What each status means for Conditional Access impact
+
+- **Compliant:** Device satisfies the policy (or all non-compliance is remediated). Conditional Access policies that require a compliant device are satisfied.
+- **Not compliant:** Device has one or more failed required settings beyond grace period (or immediate fail actions). Conditional Access policies requiring compliant device will block access (or enforce stronger control depending on policy design).
+- **In grace period:** Device has a detected failure but is still inside the configured remediation window (7 days in this baseline). Conditional Access usually treats this as temporarily allowed until grace expires; after expiry it transitions to Not compliant if unresolved.
+
+> Validation note: Conditional Access effect should be verified in your tenant's sign-in logs because CA decision also depends on user, app, location, and grant controls.
+
+### 3) BitLocker shows Not compliant but BitLocker is enabled (common false positives)
+
+#### Cause A: Health Attestation Service (HAS) reporting lag
+
+- **Why it happens:** BitLocker was enabled recently, but HAS/Intune has not yet ingested the updated encrypted state.
+- **Fastest check:** On the endpoint, run `manage-bde -status C:` and confirm **Conversion Status = Fully Encrypted** and **Protection Status = Protection On**. If correct locally but Intune still shows fail, this is likely telemetry lag.
+
+#### Cause B: Encryption is still in progress
+
+- **Why it happens:** Device started encryption after enrollment or policy application; Intune evaluates before completion.
+- **Fastest check:** On the endpoint, run `manage-bde -status C:` and check **Percentage Encrypted**. If below 100%, wait for completion and resync.
+
+#### Cause C: TPM/Measured Boot attestation issue after firmware or TPM state change
+
+- **Why it happens:** BitLocker is active, but attestation signal is stale or degraded due to TPM readiness/firmware transitions.
+- **Fastest check:** On the endpoint, run `Get-Tpm` and verify `TpmPresent=True`, `TpmReady=True`, and no lockout/ownership errors. Then trigger a sync and re-evaluate policy state.
+
+### First 24-hour validation checklist after rollout
+
+1. In policy **Device status**, confirm expected distribution of Compliant/In grace period/Not compliant and no sudden spike in Not compliant.
+2. In policy **Per-setting status**, verify `Require BitLocker` is not the dominant failure reason.
+3. Sample at least 20 failing devices and run `manage-bde -status C:` to distinguish true failures from reporting lag.
+4. Recheck sampled devices after 2-4 hours and again within 24 hours to confirm lag-related failures self-resolve.
+5. Review Microsoft Entra sign-in logs for Conditional Access failures tied to "device not compliant" to ensure business access is not being unintentionally impacted.
+
+---
+
 ## Related References
 
 - [Microsoft Intune compliance policy documentation](https://learn.microsoft.com/en-us/mem/intune/protect/device-compliance-get-started)
